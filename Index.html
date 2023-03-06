@@ -1,41 +1,87 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>簡單計算機</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="calculator">
-      <input type="text" id="display" readonly />
-      <div class="button-row">
-        <button class="operator" onclick="clearDisplay()">C</button>
-        <button class="operator" onclick="deleteFromDisplay()">DEL</button>
-        <button class="operator" onclick="addToDisplay('/')">/</button>
-        <button class="operator" onclick="addToDisplay('*')">*</button>
-      </div>
-      <div class="button-row">
-        <button class="number" onclick="addToDisplay('7')">7</button>
-        <button class="number" onclick="addToDisplay('8')">8</button>
-        <button class="number" onclick="addToDisplay('9')">9</button>
-        <button class="operator" onclick="addToDisplay('-')">-</button>
-      </div>
-      <div class="button-row">
-        <button class="number" onclick="addToDisplay('4')">4</button>
-        <button class="number" onclick="addToDisplay('5')">5</button>
-        <button class="number" onclick="addToDisplay('6')">6</button>
-        <button class="operator" onclick="addToDisplay('+')">+</button>
-      </div>
-      <div class="button-row">
-        <button class="number" onclick="addToDisplay('1')">1</button>
-        <button class="number" onclick="addToDisplay('2')">2</button>
-        <button class="number" onclick="addToDisplay('3')">3</button>
-        <button class="operator" onclick="calculate()">=</button>
-      </div>
-      <div class="button-row">
-        <button class="number" onclick="addToDisplay('0')">0</button>
-        <button class="number" onclick="addToDisplay('.')">.</button>
-      </div>
-    </div>
-    <script src="script.js"></script>
-  </body>
+<head>
+  <title>簡單計算機</title>
+  <style>
+    /* 設定按鈕的樣式 */
+    button {
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>簡單計算機</h1>
+  <div>
+    <input type="text" id="input" readonly>
+  </div>
+  <div>
+    <button onclick="appendNumber(7)">7</button>
+    <button onclick="appendNumber(8)">8</button>
+    <button onclick="appendNumber(9)">9</button>
+    <button onclick="setOperator('+')">+</button>
+  </div>
+  <div>
+    <button onclick="appendNumber(4)">4</button>
+    <button onclick="appendNumber(5)">5</button>
+    <button onclick="appendNumber(6)">6</button>
+    <button onclick="setOperator('-')">-</button>
+  </div>
+  <div>
+    <button onclick="appendNumber(1)">1</button>
+    <button onclick="appendNumber(2)">2</button>
+    <button onclick="appendNumber(3)">3</button>
+    <button onclick="setOperator('*')">*</button>
+  </div>
+  <div>
+    <button onclick="appendNumber(0)">0</button>
+    <button onclick="clearInput()">清除</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="setOperator('/')">/</button>
+  </div>
+  <script>
+    let firstOperand = null;
+    let operator = null;
+    
+    function appendNumber(num) {
+      const input = document.getElementById("input");
+      input.value += num;
+    }
+    
+    function clearInput() {
+      const input = document.getElementById("input");
+      input.value = "";
+      firstOperand = null;
+      operator = null;
+    }
+    
+    function setOperator(op) {
+      const input = document.getElementById("input");
+      if (firstOperand === null) {
+        firstOperand = Number(input.value);
+      } else {
+        calculate();
+      }
+      operator = op;
+      input.value = "";
+    }
+    
+    function calculate() {
+      const input = document.getElementById("input");
+      if (operator === "+") {
+        input.value = firstOperand + Number(input.value);
+      } else if (operator === "-") {
+        input.value = firstOperand - Number(input.value);
+      } else if (operator === "*") {
+        input.value = firstOperand * Number(input.value);
+      } else if (operator === "/") {
+        input.value = firstOperand / Number(input.value);
+      }
+      firstOperand = Number(input.value);
+      operator = null;
+    }
+  </script>
+</body>
 </html>

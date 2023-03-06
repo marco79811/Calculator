@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>計算機</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
+  <head>
+    <title>簡單計算機</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div id="calculator">
-        <div id="screen">0</div>
-        <div id="buttons">
-            <button class="operator" onclick="handleOperator('+')">+</button>
-            <button class="operator" onclick="handleOperator('-')">-</button>
-            <button class="operator" onclick="handleOperator('*')">*</button>
-            <button class="operator" onclick="handleOperator('/')">/</button>
-            <button class="number" onclick="appendNumber('7')">7</button>
-            <button class="number" onclick="appendNumber('8')">8</button>
-            <button class="number" onclick="appendNumber('9')">9</button>
-            <button class="number" onclick="appendNumber('4')">4</button>
-            <button class="number" onclick="appendNumber('5')">5</button>
-            <button class="number" onclick="appendNumber('6')">6</button>
-            <button class="number" onclick="appendNumber('1')">1</button>
-            <button class="number" onclick="appendNumber('2')">2</button>
-            <button class="number" onclick="appendNumber('3')">3</button>
-            <button class="number" onclick="appendNumber('0')">0</button>
-            <button class="decimal" onclick="handleDecimal()">.</button>
-            <button class="clear" onclick="clearScreen()">C</button>
-            <button class="equals" onclick="evaluate()">=</button>
-        </div>
+      <input type="text" id="display" readonly />
+      <div class="button-row">
+        <button class="operator" onclick="clearDisplay()">C</button>
+        <button class="operator" onclick="deleteFromDisplay()">DEL</button>
+        <button class="operator" onclick="addToDisplay('/')">/</button>
+        <button class="operator" onclick="addToDisplay('*')">*</button>
+      </div>
+      <div class="button-row">
+        <button class="number" onclick="addToDisplay('7')">7</button>
+        <button class="number" onclick="addToDisplay('8')">8</button>
+        <button class="number" onclick="addToDisplay('9')">9</button>
+        <button class="operator" onclick="addToDisplay('-')">-</button>
+      </div>
+      <div class="button-row">
+        <button class="number" onclick="addToDisplay('4')">4</button>
+        <button class="number" onclick="addToDisplay('5')">5</button>
+        <button class="number" onclick="addToDisplay('6')">6</button>
+        <button class="operator" onclick="addToDisplay('+')">+</button>
+      </div>
+      <div class="button-row">
+        <button class="number" onclick="addToDisplay('1')">1</button>
+        <button class="number" onclick="addToDisplay('2')">2</button>
+        <button class="number" onclick="addToDisplay('3')">3</button>
+        <button class="operator" onclick="calculate()">=</button>
+      </div>
+      <div class="button-row">
+        <button class="number" onclick="addToDisplay('0')">0</button>
+        <button class="number" onclick="addToDisplay('.')">.</button>
+      </div>
     </div>
-    <script src="Calculator.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

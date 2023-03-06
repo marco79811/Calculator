@@ -1,17 +1,37 @@
-let display = document.getElementById("display");
+// 獲取輸入框
+var inputBox = document.getElementById("inputBox");
 
-function addToDisplay(value) {
-  display.value += value;
+// 加
+function add() {
+  inputBox.value += "+";
 }
 
-function clearDisplay() {
-  display.value = "";
+// 減
+function subtract() {
+  inputBox.value += "-";
 }
 
-function deleteFromDisplay() {
-  display.value = display.value.slice(0, -1);
+// 乘
+function multiply() {
+  inputBox.value += "×";
 }
 
+// 除
+function divide() {
+  inputBox.value += "/";
+}
+
+// 清除輸入框
+function clearInput() {
+  inputBox.value = "";
+}
+
+// 計算
 function calculate() {
-  display.value = eval(display.value);
+  try {
+    var result = eval(inputBox.value);
+    inputBox.value = result;
+  } catch (error) {
+    alert("Error");
+  }
 }

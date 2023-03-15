@@ -41,12 +41,23 @@
       border-radius: 5px;
       cursor: pointer;
       }
+    .buttonEqual{
+      width: 100px;
+      height: 50px;
+      font-size: 24px;
+      margin: 5px;
+      background-color: #f7f7f7;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      }
 
     /* 設定運算符按鈕樣式 */
     .operator {
       background-color: #4CAF50;
       color: white;
     }
+
   </style>
 </head>
 <body>
@@ -67,7 +78,7 @@
     <button class="button0" onclick="addInput('0')">0</button>
     <button class="button" onclick="addInput('.')">.</button>
     <button class="button operator" onclick="addInput('/')">÷</button><br>
-    <button class="button operator" onclick="calculate()">=</button>
+    <button class="buttonEqual operator" onclick="calculate()">=</button>
     <button class="button operator" onclick="clearResult()">C</button>
     <button class="button operator" onclick="deleteLast()">&#x2190;</button><br>
   </div>

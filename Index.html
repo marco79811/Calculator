@@ -2,37 +2,41 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Calculator</title>
+  <title>簡單計算機</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="calculator">
-      <div class="display">
-        <input type="text" id="result" />
-      </div>
-      <div class="buttons">
-        <button onclick="clearResult()">C</button>
-        <button onclick="deleteLast()">CE</button>
-        <button onclick="addInput('%')">%</button>
-        <button onclick="addInput('/')">÷</button>
-        <button onclick="addInput('7')">7</button>
-        <button onclick="addInput('8')">8</button>
-        <button onclick="addInput('9')">9</button>
-        <button onclick="addInput('*')">×</button>
-        <button onclick="addInput('4')">4</button>
-        <button onclick="addInput('5')">5</button>
-        <button onclick="addInput('6')">6</button>
-        <button onclick="addInput('-')">-</button>
-        <button onclick="addInput('1')">1</button>
-        <button onclick="addInput('2')">2</button>
-        <button onclick="addInput('3')">3</button>
-        <button onclick="addInput('+')">+</button>
-        <button onclick="addInput('0')">0</button>
-        <button onclick="addInput('.')">.</button>
-        <button onclick="calculate()">=</button>
-      </div>
+  <div class="calculator">
+    <input type="text" id="result" readonly>
+    <div class="button-row">
+      <button onclick="addInput('7')">7</button>
+      <button onclick="addInput('8')">8</button>
+      <button onclick="addInput('9')">9</button>
+      <button onclick="addInput('+')">+</button>
     </div>
-
-    <script src="Calculator.js"></script>
-  </body>
+    <div class="button-row">
+      <button onclick="addInput('4')">4</button>
+      <button onclick="addInput('5')">5</button>
+      <button onclick="addInput('6')">6</button>
+      <button onclick="addInput('-')">-</button>
+    </div>
+    <div class="button-row">
+      <button onclick="addInput('1')">1</button>
+      <button onclick="addInput('2')">2</button>
+      <button onclick="addInput('3')">3</button>
+      <button onclick="addInput('*')">&times;</button>
+    </div>
+    <div class="button-row">
+      <button onclick="addInput('0')">0</button>
+      <button onclick="addInput('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="addInput('/')">&divide;</button>
+    </div>
+    <div class="button-row">
+      <button onclick="clearResult()">C</button>
+      <button onclick="deleteLast()">DEL</button>
+    </div>
+  </div>
+  <script src="Calculator.js"></script>
+</body>
 </html>

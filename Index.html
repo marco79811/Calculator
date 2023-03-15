@@ -5,22 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* 設置計算機外框樣式 */
+    /* 設定計算機外框樣式 */
     .calculator {
-      width: 300px;
+      width: 500px;
       margin: auto;
       text-align: center;
       border: 1px solid #ccc;
       padding: 10px;
     }
 
-    /* 設置輸入框樣式 */
+    /* 設定輸入框樣式 */
     #result {
       width: 100%;
       margin-bottom: 10px;
     }
 
-    /* 設置按鈕樣式 */
+    /* 設定按鈕樣式 */
     .button {
       width: 50px;
       height: 50px;
@@ -32,7 +32,7 @@
       cursor: pointer;
     }
 
-    /* 設置運算符按鈕樣式 */
+    /* 設定運算符按鈕樣式 */
     .operator {
       background-color: #4CAF50;
       color: white;
@@ -53,13 +53,14 @@
     <button class="button" onclick="addInput('7')">7</button>
     <button class="button" onclick="addInput('8')">8</button>
     <button class="button" onclick="addInput('9')">9</button>
-    <button class="button operator" onclick="addInput('*')">✕</button><br>
-    <button class="button" onclick="addInput('0')">0</button>
-    <button class="button" onclick="addInput('.')">.</button>
+    <button class="button operator" onclick="addInput('*')">✕</button>
     <button class="button operator" onclick="addInput('/')">÷</button>
     <button class="button operator" onclick="calculate()">=</button>
     <button class="button operator" onclick="clearResult()">C</button>
     <button class="button operator" onclick="deleteLast()">&#x2190;</button><br>
+    <button class="button" onclick="addInput('0')">0</button>
+    <button class="button" onclick="addInput('.')">.</button>
+    <br>
   </div>
   <script src="Calculator.js"></script>
 </body>

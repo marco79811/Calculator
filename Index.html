@@ -1,42 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
   <title>簡單計算機</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* 設置計算機外框樣式 */
+    .calculator {
+      width: 300px;
+      margin: auto;
+      text-align: center;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    /* 設置輸入框樣式 */
+    #result {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    /* 設置按鈕樣式 */
+    .button {
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      margin: 5px;
+      background-color: #f7f7f7;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* 設置運算符按鈕樣式 */
+    .operator {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <div class="calculator">
     <input type="text" id="result" readonly>
-    <div class="button-row">
-      <button onclick="addInput('7')">7</button>
-      <button onclick="addInput('8')">8</button>
-      <button onclick="addInput('9')">9</button>
-      <button onclick="addInput('+')">+</button>
-    </div>
-    <div class="button-row">
-      <button onclick="addInput('4')">4</button>
-      <button onclick="addInput('5')">5</button>
-      <button onclick="addInput('6')">6</button>
-      <button onclick="addInput('-')">-</button>
-    </div>
-    <div class="button-row">
-      <button onclick="addInput('1')">1</button>
-      <button onclick="addInput('2')">2</button>
-      <button onclick="addInput('3')">3</button>
-      <button onclick="addInput('*')">&times;</button>
-    </div>
-    <div class="button-row">
-      <button onclick="addInput('0')">0</button>
-      <button onclick="addInput('.')">.</button>
-      <button onclick="calculate()">=</button>
-      <button onclick="addInput('/')">&divide;</button>
-    </div>
-    <div class="button-row">
-      <button onclick="clearResult()">C</button>
-      <button onclick="deleteLast()">DEL</button>
-    </div>
+    <button class="button" onclick="addInput('1')">1</button>
+    <button class="button" onclick="addInput('2')">2</button>
+    <button class="button" onclick="addInput('3')">3</button>
+    <button class="button operator" onclick="addInput('+')">+</button><br>
+    <button class="button" onclick="addInput('4')">4</button>
+    <button class="button" onclick="addInput('5')">5</button>
+    <button class="button" onclick="addInput('6')">6</button>
+    <button class="button operator" onclick="addInput('-')">-</button><br>
+    <button class="button" onclick="addInput('7')">7</button>
+    <button class="button" onclick="addInput('8')">8</button>
+    <button class="button" onclick="addInput('9')">9</button>
+    <button class="button operator" onclick="addInput('*')">*</button><br>
+    <button class="button" onclick="addInput('0')">0</button>
+    <button class="button" onclick="addInput('.')">.</button>
+    <button class="button operator" onclick="addInput('/')">/</button>
+    <button class="button operator" onclick="calculate()">=</button><br>
+    <button class="button" onclick="clearResult()">C</button>
+    <button class="button" onclick="deleteLast()">&#x2190;</button>
   </div>
-  <script src="Calculator.js"></script>
+  <script src="calculator.js"></script>
 </body>
 </html>

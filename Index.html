@@ -9,36 +9,26 @@
   <div class="calculator">
     <input type="text" id="inputBox" placeholder="輸入數字" readonly/>
     <br>
-    <div class="button-row">
-        <button class="operator" onclick="clearDisplay()">C</button>
-        <button class="operator" onclick="deleteFromDisplay()">DEL</button>
-        <button class="operator" onclick="addToDisplay('/')">/</button>
-        <button class="operator" onclick="addToDisplay('*')">*</button>
-      </div>
-      <div class="button-row">
-        <button class="number" onclick="addToDisplay('7')">7</button>
-        <button class="number" onclick="addToDisplay('8')">8</button>
-        <button class="number" onclick="addToDisplay('9')">9</button>
-        <button class="operator" onclick="addToDisplay('-')">-</button>
-      </div>
-      <div class="button-row">
-        <button class="number" onclick="addToDisplay('4')">4</button>
-        <button class="number" onclick="addToDisplay('5')">5</button>
-        <button class="number" onclick="addToDisplay('6')">6</button>
-        <button class="operator" onclick="addToDisplay('+')">+</button>
-      </div>
-      <div class="button-row">
-        <button class="number" onclick="addToDisplay('1')">1</button>
-        <button class="number" onclick="addToDisplay('2')">2</button>
-        <button class="number" onclick="addToDisplay('3')">3</button>
-        <button class="operator" onclick="calculate()">=</button>
-      </div>
-      <div class="button-row">
-        <button class="number" onclick="addToDisplay('0')">0</button>
-        <button class="number" onclick="addToDisplay('.')">.</button>
-      </div>
-    </div>
-    <br>
+    <div class="container">
+		<div class="result"></div>
+		<button onclick="append('7')">7</button>
+		<button onclick="append('8')">8</button>
+		<button onclick="append('9')">9</button>
+		<button onclick="operation('/')">÷</button>
+		<button onclick="append('4')">4</button>
+		<button onclick="append('5')">5</button>
+		<button onclick="append('6')">6</button>
+		<button onclick="operation('*')">×</button>
+		<button onclick="append('1')">1</button>
+		<button onclick="append('2')">2</button>
+		<button onclick="append('3')">3</button>
+		<button onclick="operation('-')">-</button>
+		<button onclick="append('0')">0</button>
+		<button onclick="append('.')">.</button>
+		<button onclick="calculate()">=</button>
+		<button onclick="operation('+')">+</button>
+		<button onclick="clear()">C</button>
+	</div>
   </div>
 
   <script src="Calculator.js"></script>

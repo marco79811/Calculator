@@ -1,3 +1,7 @@
+
+// 定義變量 input 來保存用戶的輸入
+let input = '';
+
 // 獲取用於顯示計算結果的 input 元素
 const result = document.getElementById('result');
 

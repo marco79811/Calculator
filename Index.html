@@ -7,12 +7,37 @@
 </head>
 <body>
   <div class="calculator">
-    <input type="text" id="inputBox" placeholder="輸入數字">
+    <input type="text" id="inputBox" placeholder="輸入數字" readonly/>
     <br>
-    <button class="operator" onclick="add()">+</button>
-    <button class="operator" onclick="subtract()">-</button>
-    <button class="operator" onclick="multiply()">×</button>
-    <button class="operator" onclick="divide()">÷</button>
+    <div class="button-row">
+        <button class="operator" onclick="clearDisplay()">C</button>
+        <button class="operator" onclick="deleteFromDisplay()">DEL</button>
+        <button class="operator" onclick="addToDisplay('/')">/</button>
+        <button class="operator" onclick="addToDisplay('*')">*</button>
+      </div>
+      <div class="button-row">
+        <button class="number" onclick="addToDisplay('7')">7</button>
+        <button class="number" onclick="addToDisplay('8')">8</button>
+        <button class="number" onclick="addToDisplay('9')">9</button>
+        <button class="operator" onclick="addToDisplay('-')">-</button>
+      </div>
+      <div class="button-row">
+        <button class="number" onclick="addToDisplay('4')">4</button>
+        <button class="number" onclick="addToDisplay('5')">5</button>
+        <button class="number" onclick="addToDisplay('6')">6</button>
+        <button class="operator" onclick="addToDisplay('+')">+</button>
+      </div>
+      <div class="button-row">
+        <button class="number" onclick="addToDisplay('1')">1</button>
+        <button class="number" onclick="addToDisplay('2')">2</button>
+        <button class="number" onclick="addToDisplay('3')">3</button>
+        <button class="operator" onclick="calculate()">=</button>
+      </div>
+      <div class="button-row">
+        <button class="number" onclick="addToDisplay('0')">0</button>
+        <button class="number" onclick="addToDisplay('.')">.</button>
+      </div>
+    </div>
     <br>
     <button onclick="clearInput()">C</button>
     <button onclick="calculate()">=</button>

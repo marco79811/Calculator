@@ -7,7 +7,7 @@
   <style>
     /* 設定計算機外框樣式 */
     .calculator {
-      width: 500px;
+      width: 300px;
       margin: auto;
       text-align: center;
       border: 1px solid #ccc;
@@ -31,6 +31,16 @@
       border-radius: 5px;
       cursor: pointer;
     }
+    .button0{
+      width: 100px;
+      height: 50px;
+      font-size: 24px;
+      margin: 5px;
+      background-color: #f7f7f7;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      }
 
     /* 設定運算符按鈕樣式 */
     .operator {
@@ -53,11 +63,11 @@
     <button class="button" onclick="addInput('7')">7</button>
     <button class="button" onclick="addInput('8')">8</button>
     <button class="button" onclick="addInput('9')">9</button>
-    <button class="button operator" onclick="addInput('*')">✕</button>
-    <button class="button operator" onclick="addInput('/')">÷</button>
-    <button class="button operator" onclick="calculate()">=</button><br>
-    <button class="button" onclick="addInput('0')">0</button>
+    <button class="button operator" onclick="addInput('*')">✕</button><br>
+    <button class="button0" onclick="addInput('0')">0</button>
     <button class="button" onclick="addInput('.')">.</button>
+    <button class="button operator" onclick="addInput('/')">÷</button><br>
+    <button class="button operator" onclick="calculate()">=</button>
     <button class="button operator" onclick="clearResult()">C</button>
     <button class="button operator" onclick="deleteLast()">&#x2190;</button><br>
   </div>

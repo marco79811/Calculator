@@ -1,62 +1,41 @@
-// // 獲取輸入框
-// var inputBox = document.getElementById("inputBox");
+// 獲取用於顯示計算結果的 input 元素
+const result = document.getElementById('result');
 
-// // 加
-// function add() {
-//   inputBox.value += "+";
-// }
-
-// // 減
-// function subtract() {
-//   inputBox.value += "-";
-// }
-
-// // 乘
-// function multiply() {
-//   inputBox.value += "×";
-// }
-
-// // 除
-// function divide() {
-//   inputBox.value += "/";
-// }
-
-// // 清除輸入框
-// function clearInput() {
-//   inputBox.value = "";
-// }
-
-// // 計算
-// function calculate() {
-//   try {
-//     var result = eval(inputBox.value);
-//     inputBox.value = result;
-//   } catch (error) {
-//     alert("Error");
-//   }
-// }
-
-//取得輸入值
-let input = "";
-let result = document.getElementById("result");
-
-
+// 定義函數 addInput 來添加用戶的輸入
 function addInput(value) {
   input += value;
   result.value = input;
 }
 
+// 定義函數 calculate 來計算結果
 function calculate() {
-  result.value = eval(input);
-  input = "";
+  // 使用 try...catch 捕捉可能出現的錯誤
+  try {
+    // 調用 eval 函數來計算用戶輸入的表達式
+    // 如果表達式不合法，eval 會拋出一個錯誤
+    // 在這裡使用了 + 運算符將字符串轉為數字
+    const resultValue = +eval(input);
+    // 將計算結果顯示在 input 元素中
+    result.value = resultValue;
+    // 重置 input 字符串
+    input = '';
+  } catch (error) {
+    // 如果出現錯誤，顯示錯誤信息並重置 input 字符串
+    alert('輸入表達式不合法！');
+    input = '';
+    result.value = '';
+  }
 }
 
+// 定義函數 clearResult 來清除計算結果
 function clearResult() {
-  result.value = "";
-  input = "";
+  input = '';
+  result.value = '';
 }
 
+// 定義函數 deleteLast 來刪除最後一個字符
 function deleteLast() {
   input = input.slice(0, -1);
   result.value = input;
 }
+

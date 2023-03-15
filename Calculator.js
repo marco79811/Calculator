@@ -25,7 +25,7 @@ function calculate() {
     input = '';
   } catch (error) {
     // 如果出現錯誤，顯示錯誤信息並重置 input 字符串
-    alert('輸入表達式不合法！');
+    alert('輸入錯誤！');
     input = '';
     result.value = '';
   }

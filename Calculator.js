@@ -1,11 +1,11 @@
 
-// 定義變量 input 來保存用戶的輸入
+// 定義變量 input 來保存使用者的輸入值
 let input = '';
 
 // 獲取用於顯示計算結果的 input 元素
 const result = document.getElementById('result');
 
-// 定義函數 addInput 來添加用戶的輸入
+// 定義函數 addInput 來添加使用者的輸入
 function addInput(value) {
   input += value;
   result.value = input;
@@ -24,7 +24,7 @@ function calculate() {
     // 重置 input 字符串
     input = '';
   } catch (error) {
-    // 如果出現錯誤，顯示錯誤信息並重置 input 字符串
+    // 如果出現錯誤，顯示錯誤信息並重置 input 字串
     alert('輸入錯誤！');
     input = '';
     result.value = '';

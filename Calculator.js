@@ -1,4 +1,4 @@
-// 使用立即執行函式來創建私有作用域，避免變量污染全局環境
+// 使用立即執行函式來創建私有作用域
 (function() {
   // 定義計算機的狀態管理對象
   const calculatorState = {
@@ -16,10 +16,7 @@
       return;
     }
     
-    // 設置初始顯示值
     display.value = '0';
-    
-    // 添加鍵盤事件監聽
     document.addEventListener('keydown', handleKeyboardInput);
   });
 
@@ -27,12 +24,10 @@
   function handleKeyboardInput(event) {
     const key = event.key;
     
-    // 防止鍵盤事件觸發頁面滾動
     if (['+', '-', '*', '/', '=', 'Enter'].includes(key)) {
       event.preventDefault();
     }
 
-    // 匹配數字鍵和運算符
     if (/^[0-9.]$/.test(key)) {
       addInput(key);
     } else if (['+', '-', '*', '/'].includes(key)) {
@@ -46,7 +41,47 @@
     }
   }
 
-  // 格式化顯示的數字
+  // 安全的計算函數
+  function safeEval(expression) {
+    // 將表達式分解成數字和運算符
+    const tokens = expression.match(/(-?\d+\.?\d*)|([+\-*/])/g);
+    if (!tokens) return NaN;
+
+    // 處理第一個數字可能是負數的情況
+    let result = parseFloat(tokens[0]);
+    let currentOperator = null;
+
+    for (let i = 1; i < tokens.length; i++) {
+      const token = tokens[i];
+      
+      if (['+', '-', '*', '/'].includes(token)) {
+        currentOperator = token;
+      } else {
+        const num = parseFloat(token);
+        
+        // 執行計算
+        switch (currentOperator) {
+          case '+':
+            result += num;
+            break;
+          case '-':
+            result -= num;
+            break;
+          case '*':
+            result *= num;
+            break;
+          case '/':
+            if (num === 0) throw new Error('除以零');
+            result /= num;
+            break;
+        }
+      }
+    }
+    
+    return result;
+  }
+
+  // 格式化數字顯示
   function formatNumber(num) {
     if (typeof num === 'number') {
       // 處理科學計數法的情況
@@ -54,8 +89,12 @@
         return num.toExponential(6);
       }
       
-      // 處理一般數字，去除末尾的0和不必要的小數點
-      return num.toString().replace(/\.?0+$/, '');
+      // 處理一般數字，保留適當的小數位數
+      const numStr = num.toString();
+      // 如果是整數，直接返回
+      if (Number.isInteger(num)) return numStr;
+      // 如果是小數，最多保留8位小數
+      return parseFloat(num.toFixed(8)).toString();
     }
     return num;
   }
@@ -64,7 +103,6 @@
   window.addInput = function(value) {
     const display = document.getElementById('result');
     
-    // 如果輸入太長，不再接受新的輸入
     if (calculatorState.currentInput.length >= calculatorState.maxDisplayLength) {
       return;
     }
@@ -72,7 +110,7 @@
     // 處理小數點
     if (value === '.') {
       if (calculatorState.currentInput.includes('.')) {
-        return; // 避免重複的小數點
+        return;
       }
       if (calculatorState.currentInput === '' || calculatorState.isNewCalculation) {
         calculatorState.currentInput = '0';
@@ -81,6 +119,14 @@
 
     // 處理運算符
     if (['+', '-', '*', '/'].includes(value)) {
+      // 處理負數的特殊情況
+      if (value === '-' && (calculatorState.currentInput === '' || 
+          calculatorState.currentInput.slice(-1) === '(')) {
+        calculatorState.currentInput += value;
+        display.value = calculatorState.currentInput;
+        return;
+      }
+
       // 不允許連續的運算符
       if (['+', '-', '*', '/'].includes(calculatorState.currentInput.slice(-1))) {
         calculatorState.currentInput = calculatorState.currentInput.slice(0, -1) + value;
@@ -88,7 +134,6 @@
         return;
       }
       
-      // 如果是新計算，且有之前的結果，使用之前的結果繼續計算
       if (calculatorState.isNewCalculation && calculatorState.previousResult !== null) {
         calculatorState.currentInput = calculatorState.previousResult.toString();
       }
@@ -121,34 +166,29 @@
         expression = expression.slice(0, -1);
       }
 
-      // 使用 Function 構造函數代替 eval，更安全
-      const calculateFn = new Function('return ' + expression);
-      let result = calculateFn();
+      // 使用安全的計算函數而不是 eval
+      const result = safeEval(expression);
 
-      // 處理除以零的情況
-      if (!isFinite(result)) {
-        throw new Error('除以零');
+      // 檢查計算結果是否有效
+      if (isNaN(result) || !isFinite(result)) {
+        throw new Error('無效的計算');
       }
 
-      // 格式化結果
-      result = formatNumber(result);
-      
-      // 更新顯示和狀態
-      display.value = result;
+      // 格式化並顯示結果
+      const formattedResult = formatNumber(result);
+      display.value = formattedResult;
       calculatorState.previousResult = result;
-      calculatorState.currentInput = result.toString();
+      calculatorState.currentInput = formattedResult.toString();
       calculatorState.isNewCalculation = true;
       
     } catch (error) {
       display.value = '錯誤';
       console.error('計算錯誤：', error.message);
       
-      // 重置狀態
       calculatorState.currentInput = '';
       calculatorState.previousResult = null;
       calculatorState.isNewCalculation = true;
       
-      // 1秒後清除錯誤顯示
       setTimeout(() => {
         display.value = '0';
       }, 1000);

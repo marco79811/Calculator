@@ -1,45 +1,119 @@
+// 建立一個立即執行函式來避免全局變量污染
+(function() {
+  // 使用 let 來宣告可變的計算機狀態
+  let state = {
+    currentInput: '',
+    previousResult: null,
+    isNewCalculation: true
+  };
 
-// 定義變量 input 來保存使用者的輸入值
-let input = '';
+  // 當 DOM 載入完成後初始化計算機
+  document.addEventListener('DOMContentLoaded', function() {
+    const display = document.getElementById('result');
+    if (!display) {
+      console.error('找不到顯示元素！');
+      return;
+    }
+    
+    // 設置初始顯示值
+    display.value = '0';
+  });
 
-// 獲取用於顯示計算結果的 input 元素
-const result = document.getElementById('result');
-
-// 定義函數 addInput 來添加使用者的輸入
-function addInput(value) {
-  input += value;
-  result.value = input;
-}
-
-// 定義函數 calculate 來計算結果
-function calculate() {
-  // 使用 try...catch 捕捉可能出現的錯誤
-  try {
-    // 調用 eval 函數來計算用戶輸入的表達式
-    // 如果表達式不合法，eval 會拋出一個錯誤
-    // 在這裡使用了 + 運算符將字符串轉為數字
-    const resultValue = +eval(input);
-    // 將計算結果顯示在 input 元素中
-    result.value = resultValue;
-    // 重置 input 字符串
-    input = '';
-  } catch (error) {
-    // 如果出現錯誤，顯示錯誤信息並重置 input 字串
-    alert('輸入錯誤！');
-    input = '';
-    result.value = '';
+  // 處理數字和運算符的輸入
+  function addInput(value) {
+    const display = document.getElementById('result');
+    
+    // 處理輸入值為小數點的特殊情況
+    if (value === '.') {
+      if (state.currentInput.includes('.')) {
+        return; // 避免重複的小數點
+      }
+      if (state.currentInput === '' || state.isNewCalculation) {
+        state.currentInput = '0';
+      }
+    }
+    
+    // 處理運算符輸入
+    if (['+', '-', '*', '/'].includes(value)) {
+      if (state.currentInput === '' && state.previousResult === null) {
+        return; // 避免以運算符開始
+      }
+      if (state.isNewCalculation) {
+        state.currentInput = display.value;
+        state.isNewCalculation = false;
+      }
+    }
+    
+    // 更新輸入狀態
+    if (state.isNewCalculation && !isNaN(value)) {
+      state.currentInput = value;
+      state.isNewCalculation = false;
+    } else {
+      state.currentInput += value;
+    }
+    
+    display.value = state.currentInput;
   }
-}
 
-// 定義函數 clearResult 來清除計算結果
-function clearResult() {
-  input = '';
-  result.value = '';
-}
+  // 計算結果
+  function calculate() {
+    const display = document.getElementById('result');
+    
+    if (!state.currentInput) {
+      return; // 沒有輸入時不進行計算
+    }
 
-// 定義函數 deleteLast 來刪除最後一個字符
-function deleteLast() {
-  input = input.slice(0, -1);
-  result.value = input;
-}
+    try {
+      // 使用 Function 構造函數替代 eval，更安全
+      const calculateFn = new Function('return ' + state.currentInput);
+      const result = calculateFn();
+      
+      // 格式化結果，處理精度問題
+      const formattedResult = Number.isInteger(result) 
+        ? result 
+        : parseFloat(result.toFixed(8));
+      
+      display.value = formattedResult;
+      state.previousResult = formattedResult;
+      state.currentInput = formattedResult.toString();
+      state.isNewCalculation = true;
+    } catch (error) {
+      display.value = '錯誤';
+      state.currentInput = '';
+      state.previousResult = null;
+      state.isNewCalculation = true;
+      
+      // 提供更具體的錯誤信息
+      console.error('計算錯誤：', error.message);
+      setTimeout(() => {
+        display.value = '0';
+      }, 1000);
+    }
+  }
 
+  // 清除所有輸入
+  function clearResult() {
+    const display = document.getElementById('result');
+    state.currentInput = '';
+    state.previousResult = null;
+    state.isNewCalculation = true;
+    display.value = '0';
+  }
+
+  // 刪除最後一個輸入的字符
+  function deleteLast() {
+    const display = document.getElementById('result');
+    if (state.isNewCalculation) {
+      return; // 如果是新的計算，不需要刪除
+    }
+    
+    state.currentInput = state.currentInput.slice(0, -1);
+    display.value = state.currentInput || '0';
+  }
+
+  // 將函數暴露到全局作用域
+  window.addInput = addInput;
+  window.calculate = calculate;
+  window.clearResult = clearResult;
+  window.deleteLast = deleteLast;
+})();

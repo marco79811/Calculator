@@ -5,82 +5,156 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* 設定計算機外框樣式 */
-    .calculator {
-      width: 300px;
-      margin: auto;
-      text-align: center;
-      border: 1px solid #ccc;
-      padding: 10px;
+    /* 重置基本樣式，確保跨瀏覽器的一致性 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* 設定輸入框樣式 */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f2f5;
+      font-family: Arial, sans-serif;
+    }
+
+    /* 計算機外框樣式改進 */
+    .calculator {
+      width: 320px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    /* 當計算機被hover時添加微小的上浮效果 */
+    .calculator:hover {
+      transform: translateY(-5px);
+    }
+
+    /* 改進輸入框樣式 */
     #result {
       width: 100%;
-      margin-bottom: 10px;
+      height: 60px;
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 28px;
+      text-align: right;
+      border: none;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      color: #333;
     }
 
-    /* 設定按鈕樣式 */
+    /* 按鈕容器，使用網格布局 */
+    .buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    /* 基本按鈕樣式改進 */
     .button {
-      width: 50px;
       height: 50px;
       font-size: 24px;
-      margin: 5px;
-      background-color: #f7f7f7;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: none;
+      border-radius: 10px;
+      background-color: #f8f9fa;
+      color: #333;
       cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .button0{
-      width: 100px;
-      height: 50px;
-      font-size: 24px;
-      margin: 5px;
-      background-color: #f7f7f7;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      cursor: pointer;
-      }
-    .buttonEqual{
-      width: 100px;
-      height: 50px;
-      font-size: 24px;
-      margin: 5px;
-      background-color: #f7f7f7;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      cursor: pointer;
-      }
 
-    /* 設定運算符按鈕樣式 */
+    /* 按鈕懸停效果 */
+    .button:hover {
+      background-color: #e9ecef;
+      transform: scale(1.05);
+    }
+
+    /* 按鈕按下效果 */
+    .button:active {
+      transform: scale(0.95);
+    }
+
+    /* 運算符按鈕樣式 */
     .operator {
       background-color: #4CAF50;
       color: white;
     }
 
+    .operator:hover {
+      background-color: #45a049;
+    }
+
+    /* 數字0按鈕和等號按鈕樣式 */
+    .button0 {
+      grid-column: span 2;
+    }
+
+    .buttonEqual {
+      grid-column: span 2;
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .buttonEqual:hover {
+      background-color: #1976D2;
+    }
+
+    /* 清除和刪除按鈕特殊樣式 */
+    .button.clear {
+      background-color: #ff4444;
+      color: white;
+    }
+
+    .button.clear:hover {
+      background-color: #cc0000;
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 360px) {
+      .calculator {
+        width: 100%;
+        margin: 10px;
+      }
+
+      .button {
+        font-size: 20px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="calculator">
     <input type="text" id="result" readonly>
-    <button class="button" onclick="addInput('1')">1</button>
-    <button class="button" onclick="addInput('2')">2</button>
-    <button class="button" onclick="addInput('3')">3</button>
-    <button class="button operator" onclick="addInput('+')">+</button><br>
-    <button class="button" onclick="addInput('4')">4</button>
-    <button class="button" onclick="addInput('5')">5</button>
-    <button class="button" onclick="addInput('6')">6</button>
-    <button class="button operator" onclick="addInput('-')">-</button><br>
-    <button class="button" onclick="addInput('7')">7</button>
-    <button class="button" onclick="addInput('8')">8</button>
-    <button class="button" onclick="addInput('9')">9</button>
-    <button class="button operator" onclick="addInput('*')">✕</button><br>
-    <button class="button0" onclick="addInput('0')">0</button>
-    <button class="button" onclick="addInput('.')">.</button>
-    <button class="button operator" onclick="addInput('/')">÷</button><br>
-    <button class="buttonEqual operator" onclick="calculate()">=</button>
-    <button class="button operator" onclick="clearResult()">C</button>
-    <button class="button operator" onclick="deleteLast()">DEL</button><br>
+    <div class="buttons-grid">
+      <button class="button clear" onclick="clearResult()">C</button>
+      <button class="button clear" onclick="deleteLast()">DEL</button>
+      <button class="button operator" onclick="addInput('/')">&divide;</button>
+      <button class="button operator" onclick="addInput('*')">&times;</button>
+
+      <button class="button" onclick="addInput('7')">7</button>
+      <button class="button" onclick="addInput('8')">8</button>
+      <button class="button" onclick="addInput('9')">9</button>
+      <button class="button operator" onclick="addInput('-')">-</button>
+
+      <button class="button" onclick="addInput('4')">4</button>
+      <button class="button" onclick="addInput('5')">5</button>
+      <button class="button" onclick="addInput('6')">6</button>
+      <button class="button operator" onclick="addInput('+')">+</button>
+
+      <button class="button" onclick="addInput('1')">1</button>
+      <button class="button" onclick="addInput('2')">2</button>
+      <button class="button" onclick="addInput('3')">3</button>
+      <button class="button" onclick="addInput('.')">.</button>
+
+      <button class="button button0" onclick="addInput('0')">0</button>
+      <button class="buttonEqual operator" onclick="calculate()">=</button>
+    </div>
   </div>
   <script src="Calculator.js"></script>
 </body>
